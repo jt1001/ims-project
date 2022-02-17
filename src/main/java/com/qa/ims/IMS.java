@@ -6,7 +6,11 @@ import org.apache.logging.log4j.Logger;
 import com.qa.ims.controller.Action;
 import com.qa.ims.controller.CrudController;
 import com.qa.ims.controller.CustomerController;
+import com.qa.ims.controller.ItemController;
+import com.qa.ims.controller.OrderController;
 import com.qa.ims.persistence.dao.CustomerDAO;
+import com.qa.ims.persistence.dao.ItemDAO;
+import com.qa.ims.persistence.dao.OrderDAO;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.utils.DBUtils;
 import com.qa.ims.utils.Utils;
@@ -17,11 +21,19 @@ public class IMS {
 
 	private final CustomerController customers;
 	private final Utils utils;
+	private final ItemController item;
+	private final OrderController order;
 
 	public IMS() {
 		this.utils = new Utils();
 		final CustomerDAO custDAO = new CustomerDAO();
 		this.customers = new CustomerController(custDAO, utils);
+		final ItemDAO itemDAO = new ItemDAO();
+		this.item = new ItemController(itemDAO, utils);
+		final OrderDAO orderDAO = new OrderDAO();
+		this.order = new OrderController(orderDAO, utils);
+		
+		
 	}
 
 	public void imsSystem() {
@@ -50,8 +62,10 @@ public class IMS {
 				active = this.customers;
 				break;
 			case ITEM:
+				active = this.item;
 				break;
 			case ORDER:
+				active = this.order;
 				break;
 			case STOP:
 				return;
@@ -59,7 +73,7 @@ public class IMS {
 				break;
 			}
 
-			LOGGER.info(() ->"What would you like to do with " + domain.name().toLowerCase() + ":");
+			LOGGER.info(() -> "What would you like to do with " + domain.name().toLowerCase() + ":");
 
 			Action.printActions();
 			Action action = Action.getAction(utils);

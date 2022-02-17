@@ -5,7 +5,7 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Utils {
+public class Utils {     
 	
 	private static final Logger LOGGER = LogManager.getLogger();
 
@@ -37,6 +37,7 @@ public class Utils {
 	public String getString() {
 		return scanner.nextLine();
 	}
+	
 
 	public Double getDouble() {
 		String input = null;
