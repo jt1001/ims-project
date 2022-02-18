@@ -74,7 +74,7 @@ public class CustomerController implements CrudController<Customer> {
 	public Customer update() {
 		LOGGER.info("Please enter the id of the customer you would like to update");
 		Long id = utils.getLong();
-		LOGGER.info("Enter a new first name if you want to change this or else leave blank and press enter");
+		LOGGER.info("Press enter if you want enter a new first name or else leave blank and press enter");
 		String firstName = utils.getString();
 		LOGGER.info("Please enter a new surname or leave blank and press enter");
 		String lastName = utils.getString();

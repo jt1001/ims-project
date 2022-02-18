@@ -20,14 +20,15 @@ import com.qa.ims.utils.Utils;
 public class OrderDAO implements Dao<Order> {
 
 	public static final Logger LOGGER = LogManager.getLogger();
-	
+
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long OrderID = resultSet.getLong("Order_ID");
 		String OrderDate = resultSet.getString("Order_Date");
 		String OrderStatus = resultSet.getString("Order_Status");
 		Long CustomerID = resultSet.getLong("Customer_ID");
-		return new Order(OrderID, OrderDate, OrderStatus, CustomerID);
+		Long itemID = resultSet.getLong("Item_ID");
+		return new Order(OrderID, OrderDate, OrderStatus, CustomerID, itemID);
 	}
 
 	@Override
@@ -46,11 +47,13 @@ public class OrderDAO implements Dao<Order> {
 	public Order create(Order Order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection.prepareStatement(
-						"INSERT INTO Orders(Order_Date, Order_Status, Customer_ID) VALUES (?, ?, ?)");) {
+						"INSERT INTO Orders(Order_Date, Customer_ID) VALUES (?,  ?)");) {
 			statement.setString(1, Order.getOrderDate());
-			statement.setString(2, Order.getOrderStatus());
-			statement.setDouble(3, Order.getCustomerId());
+			statement.setLong(2, Order.getCustomerId());
 			statement.executeUpdate();
+			statement.addBatch("INSERT INTO ordered_items(Item_ID, Order_ID) VALUES (?, ?) ");
+			statement.setLong(1, Order.getItemId());
+			statement.setLong(2, Order.getOrderId());
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -58,11 +61,11 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return null;
 	}
+
 	public Order readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement
-						.executeQuery("SELECT * FROM Orders ORDER BY Order_ID DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM Orders ORDER BY Order_ID DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -83,7 +86,5 @@ public class OrderDAO implements Dao<Order> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
 
 }

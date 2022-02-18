@@ -8,17 +8,15 @@ public class Order {
 	private String orderDate;
 	private String orderStatus;
 	private Long customerId;
+	private Long itemId;
 
-	public Order() {
-		super();
-	}
-
-	public Order(Long orderId, String orderDate, String orderStatus, Long customerId) {
+	public Order(Long orderId, String orderDate, String orderStatus, Long customerId, Long itemId) {
 		super();
 		this.orderId = orderId;
 		this.orderDate = orderDate;
 		this.orderStatus = orderStatus;
 		this.customerId = customerId;
+		this.itemId = itemId;
 	}
 
 	public Long getOrderId() {
@@ -54,12 +52,6 @@ public class Order {
 	}
 
 	@Override
-	public String toString() {
-		return "Order [orderId=" + orderId + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus
-				+ ", customerId=" + customerId + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		return Objects.hash(customerId, orderDate, orderId, orderStatus);
 	}
@@ -75,6 +67,20 @@ public class Order {
 		Order other = (Order) obj;
 		return Objects.equals(customerId, other.customerId) && Objects.equals(orderDate, other.orderDate)
 				&& Objects.equals(orderId, other.orderId) && Objects.equals(orderStatus, other.orderStatus);
+	}
+
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus
+				+ ", customerId=" + customerId + "]";
+	}
+
+	public Long getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(Long itemId) {
+		this.itemId = itemId;
 	}
 
 }

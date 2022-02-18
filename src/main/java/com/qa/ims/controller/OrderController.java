@@ -38,7 +38,9 @@ public class OrderController implements CrudController<Order>{
 		String orderDate = utils.getString();
 		LOGGER.info("Which customer will be ordering? Enter their customer ID");
 		Long CustomerID = utils.getLong();
-		Order order = orderDAO.create(new Order(null, orderDate, null, CustomerID));
+		Order order = orderDAO.create(new Order(null, orderDate, null, CustomerID, CustomerID));
+		LOGGER.info("Which Item would you like to add to the order? Please enter the item ID");
+		Long itemId = utils.getLong();
 		LOGGER.info("Order Created");
 		return order;
 	}
