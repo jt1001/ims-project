@@ -10,13 +10,13 @@ import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
 
-public class OrderController implements CrudController<Order>{
-	
+public class OrderController implements CrudController<Order> {
+
 	public static final Logger LOGGER = LogManager.getLogger();
-	
+
 	private OrderDAO orderDAO;
 	private Utils utils;
-	
+
 	public OrderController(OrderDAO orderDAO, Utils utils) {
 		super();
 		this.orderDAO = orderDAO;
@@ -27,7 +27,7 @@ public class OrderController implements CrudController<Order>{
 	public List<Order> readAll() {
 		List<Order> orders = orderDAO.readAll();
 		for (Order order : orders) {
-			LOGGER.info(order);
+			LOGGER.info(orders);
 		}
 		return orders;
 	}
@@ -38,23 +38,28 @@ public class OrderController implements CrudController<Order>{
 		String orderDate = utils.getString();
 		LOGGER.info("Which customer will be ordering? Enter their customer ID");
 		Long CustomerID = utils.getLong();
-		Order order = orderDAO.create(new Order(null, orderDate, null, CustomerID, CustomerID));
-		LOGGER.info("Which Item would you like to add to the order? Please enter the item ID");
-		Long itemId = utils.getLong();
-		LOGGER.info("Order Created");
+		Order order = orderDAO.create(new Order(null, orderDate, CustomerID, null));
+		LOGGER.info("Order created! Your Order ID is " + order.getOrderId());
 		return order;
 	}
 
 	@Override
 	public Order update() {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.info("Please enter the id of the order you would like to update");
+		Long orderId = utils.getLong();
+		LOGGER.info("Please enter the new order status( processing/ delivered)"); // ask if they want to do this
+		String orderStatus = utils.getString();
+		Order order = orderDAO.update(new Order(orderId, null, null, orderStatus));
+		LOGGER.info("Order Updated");
+		return order;
 	}
 
 	@Override
 	public int delete() {
-		// TODO Auto-generated method stub
-		return 0;
+		LOGGER.info("Please enter the id of the item you would like to delete");
+		Long orderId = utils.getLong();
+		LOGGER.info("Order deleted!");
+		return orderDAO.delete(orderId);
 	}
 
 }

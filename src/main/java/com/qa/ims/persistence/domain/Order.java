@@ -6,17 +6,16 @@ public class Order {
 
 	private Long orderId;
 	private String orderDate;
-	private String orderStatus;
 	private Long customerId;
-	private Long itemId;
+	private String orderStatus;
+	
 
-	public Order(Long orderId, String orderDate, String orderStatus, Long customerId, Long itemId) {
+	public Order(Long orderId, String orderDate, Long customerId, String orderStatus) {
 		super();
 		this.orderId = orderId;
 		this.orderDate = orderDate;
-		this.orderStatus = orderStatus;
 		this.customerId = customerId;
-		this.itemId = itemId;
+		this.orderStatus = orderStatus;
 	}
 
 	public Long getOrderId() {
@@ -73,14 +72,6 @@ public class Order {
 	public String toString() {
 		return "Order [orderId=" + orderId + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus
 				+ ", customerId=" + customerId + "]";
-	}
-
-	public Long getItemId() {
-		return itemId;
-	}
-
-	public void setItemId(Long itemId) {
-		this.itemId = itemId;
 	}
 
 }
