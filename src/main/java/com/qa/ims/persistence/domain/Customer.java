@@ -1,28 +1,45 @@
 package com.qa.ims.persistence.domain;
 
+import java.util.Objects;
+
 public class Customer {
 
-	private Long id;
+	private Long customerId;
 	private String firstName;
-	private String surname;
+	private String lastName;
+	private String contactNumber;
+	private String emailAddress;
+	private String addressLine1;
+	private String addressLine2;
+	private String postcode;
+	private String city;
+	private String country;
 
-	public Customer(String firstName, String surname) {
-		this.setFirstName(firstName);
-		this.setSurname(surname);
+	public Customer() {
+		super();
 	}
 
-	public Customer(Long id, String firstName, String surname) {
-		this.setId(id);
-		this.setFirstName(firstName);
-		this.setSurname(surname);
+	public Customer(Long customerId, String firstName, String lastName, String contactNumber, String emailAddress,
+			String addressLine1, String addressLine2, String postcode, String city, String country) {
+		this.customerId = customerId; // correct way
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.contactNumber = contactNumber;
+		this.emailAddress = emailAddress;
+		this.addressLine1 = addressLine1;
+		this.addressLine2 = addressLine2;
+		this.postcode = postcode;
+		this.city = city;
+		this.country = country;
+
 	}
 
-	public Long getId() {
-		return id;
+	public Long getcustomerId() {
+		return customerId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setcustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getFirstName() {
@@ -33,27 +50,92 @@ public class Customer {
 		this.firstName = firstName;
 	}
 
-	public String getSurname() {
-		return surname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getContactNumber() {
+		return contactNumber;
+	}
+
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public String getAddressLine1() {
+		return addressLine1;
+	}
+
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
+
+	public String getAddressLine2() {
+		return addressLine2;
+	}
+
+	public void setAddressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public void getLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Customer(String firstName, String lastName, String contactNumber) {
+		this.setFirstName(firstName);
+		this.getLastName(lastName);
+		this.getContactNumber();
 	}
 
 	@Override
 	public String toString() {
-		return "id:" + id + " first name:" + firstName + " surname:" + surname;
+		return "Customer [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", contactNumer=" + contactNumber + ", emailAddress=" + emailAddress + ", addressLine1="
+				+ addressLine1 + ", addressLine2=" + addressLine2 + ", postcode=" + postcode + ", city=" + city
+				+ ", country=" + country + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
-		return result;
+		return Objects.hash(addressLine1, addressLine2, city, contactNumber, country, customerId, emailAddress,
+				firstName, lastName, postcode);
 	}
 
 	@Override
@@ -65,22 +147,11 @@ public class Customer {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
-		if (getFirstName() == null) {
-			if (other.getFirstName() != null)
-				return false;
-		} else if (!getFirstName().equals(other.getFirstName()))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (surname == null) {
-			if (other.surname != null)
-				return false;
-		} else if (!surname.equals(other.surname))
-			return false;
-		return true;
+		return Objects.equals(customerId, other.customerId) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(contactNumber, other.contactNumber)
+				&& Objects.equals(emailAddress, other.emailAddress) && Objects.equals(addressLine1, other.addressLine1)
+				&& Objects.equals(addressLine2, other.addressLine2) && Objects.equals(postcode, other.postcode)
+				&& Objects.equals(city, other.city) && Objects.equals(country, other.country);
 	}
 
 }
