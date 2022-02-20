@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.dao.OrderDAO;
+import com.qa.ims.persistence.dao.OrderedItemDAO;
 import com.qa.ims.persistence.domain.OrderedItem;
 import com.qa.ims.utils.Utils;
 
@@ -18,7 +19,10 @@ public class OrderedItemController implements CrudController<OrderedItem>{
 	
 	@Override
 	public List<OrderedItem> readAll() {
-		// TODO Auto-generated method stub
+		List<OrderedItem> orderedItems = orderedItemDAO.readAll();
+		for (OrderedItem ordereditem : orderedItems) {
+			LOGGER.info(ordereditem);
+		}
 		return null;
 	}
 	@Override

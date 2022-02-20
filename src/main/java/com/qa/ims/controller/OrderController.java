@@ -40,6 +40,7 @@ public class OrderController implements CrudController<Order> {
 		Long CustomerID = utils.getLong();
 		Order order = orderDAO.create(new Order(null, orderDate, CustomerID, null));
 		LOGGER.info("Order created! Your Order ID is " + order.getOrderId());
+
 		return order;
 	}
 
