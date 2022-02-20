@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Item {
 
-	private long itemID;
+	private static long itemID;
 	private String itemName;
 	private Double itemPrice;
 
@@ -19,7 +19,7 @@ public class Item {
 		this.itemPrice = itemPrice;
 	}
 
-	public long getItemID() {
+	public static long getItemID() {
 		return itemID;
 	}
 

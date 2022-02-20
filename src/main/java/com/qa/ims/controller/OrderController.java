@@ -49,15 +49,24 @@ public class OrderController implements CrudController<Order> {
 		Item item = itemDAO.read(itemID);
 		items.add(item);
 		Order order = orderDAO.create(new Order(null, customerID, items));
-		LOGGER.info("Order " + order.getOrderID() + " created!" );
+		LOGGER.info("Order created!");
 
 		return order;
 	}
 
 	@Override
 	public Order update() {
-		// TODO Auto-generated method stub
-		return null;
+		LOGGER.info("Please enter the Order ID you would like to update");
+		Long customerID = utils.getLong();
+		List<Item> items = new ArrayList<>();
+		LOGGER.info("Please enter the newItem ID you want to add");
+		Long itemID = utils.getLong();
+		Item item = itemDAO.read(itemID);
+		items.add(item);
+		Order order = orderDAO.create(new Order(null, customerID, items));
+		LOGGER.info("Order updated!");
+
+		return order;
 	}
 
 	@Override

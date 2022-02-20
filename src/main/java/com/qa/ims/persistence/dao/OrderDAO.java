@@ -145,9 +145,9 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public int delete(long id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement1 = connection
-						.prepareStatement("DELETE FROM orders WHERE Order_ID = ?");
-				PreparedStatement statement = connection.prepareStatement("DELETE FROM ordered_items WHERE Order_ID = ?");) {
+				PreparedStatement statement1 = connection.prepareStatement("DELETE FROM orders WHERE Order_ID = ?");
+				PreparedStatement statement = connection
+						.prepareStatement("DELETE FROM ordered_items WHERE Order_ID = ?");) {
 			statement.setLong(1, id);
 			statement1.setLong(1, id);
 			statement.executeUpdate();
@@ -160,11 +160,12 @@ public class OrderDAO implements Dao<Order> {
 	}
 
 	@Override
-	public Order update(Order t) {
+	public Order update(Order Order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
-						.prepareStatement("UPDATE INTO Orders(Customer_ID) VALUES (?)");) {
-			statement.setLong(1, Order.getCustomerID());
+						.prepareStatement("UPDATE Ordered_Items SET Item_ID = ? WHERE Order_ID = ?");) {
+			statement.setLong(1, Item.getItemID());
+			statement.setLong(2, Order.getOrderID());
 			statement.executeUpdate();
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -188,6 +189,21 @@ public class OrderDAO implements Dao<Order> {
 				LOGGER.error(e.getMessage());
 			}
 		}
+		return null;
+	}
+
+	public Order updateOrder(Order Order, Item Item) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				PreparedStatement statement = connection
+						.prepareStatement("UPDATE Ordered_Items SET Item_ID = ? WHERE Order_ID = ?");) {
+			statement.setLong(1, Item.getItemID());
+			statement.setLong(2, Order.getOrderID());
+			statement.executeUpdate();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+//		
 		return null;
 	}
 
