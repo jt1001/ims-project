@@ -57,9 +57,9 @@ public class ItemController implements CrudController<Item> {
 	@Override
 	public int delete() {
 		LOGGER.info("Please enter the id of the item you would like to delete");
-		Long id = utils.getLong();
+		Long itemId = utils.getLong();
 		LOGGER.info("Item deleted!");
-		return itemDAO.delete(id);
+		return itemDAO.delete(itemId);
 	}
 
 }
