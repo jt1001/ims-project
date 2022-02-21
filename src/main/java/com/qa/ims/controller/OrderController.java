@@ -38,7 +38,7 @@ public class OrderController implements CrudController<Order> {
 	}
 
 	@Override
-	public Order create() {
+	public Order create() { //// not completed :(
 		LOGGER.info("Please enter the Customer ID");
 		Long customerID = utils.getLong();
 		List<Item> items = new ArrayList<>();
@@ -51,7 +51,7 @@ public class OrderController implements CrudController<Order> {
 		return null;
 	}
 
-	@Override
+	@Override  //// not completed :(
 	public Order update() {
 		LOGGER.info("Please enter the Order ID you want to amend");
 		Long orderID = utils.getLong();
