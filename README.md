@@ -1,4 +1,6 @@
-IMS Project
+## IMS PROJECT
+
+ An Inventory management system created using JAVA that is used to interact with a MySQL database.
 
 
 ## Getting Started
@@ -41,7 +43,7 @@ Test the functionality by creating a Customer:
 3. You will then be prompted to enter a first name and press enter: e.g JT
 4. You will then be prompted to enter a last name and press enter: e.g Lana
 5. You will then be prompted to enter a phone number and press enter: e.g 987654321
-6. A message will appear on the screen with: "Customer create"
+6. A message will appear on the screen with: "Customer created"
 ```
 
 
