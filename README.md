@@ -109,4 +109,4 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-Thank you to the 22JanSoftware cohort team, my code was inspired by different individuals of the team and without them I wouldnt be able to understand alot of these concepts.
+Thank you to the 22JanSoftware cohort team, my code was inspired by different individuals of the team and without them and the trainers I wouldnt be able to understand alot of these concepts.
