@@ -49,21 +49,23 @@ Test the functionality by creating a Customer:
 
 ## Running the tests
 
-Tests were created by 
+Tests were carried out in Eclipse IDE using Junit and Junit Mockito.
 
 ### Unit Tests 
 
-Explain what these tests test, why and how to run them
 
 ```
-Give an example
+A unit test is one of the most important tests as it tests a small amount of code such as a single method to see it the expected output is returned.
+Instead of calling methods by methods, the following is used:
+Stubs - replacement for method, instead of calling the real method we hard code what we expect the response to be. As long as the method is working correctly then our expected response will be correct.
+Drivers - replacement for inputs, they 'drive' data or information into the tested method. This can be very beneficial for when testing methods from an external system.
 ```
 
 ### Integration Tests 
 Explain what these tests test, why and how to run them
 
 ```
-Give an example
+Integration testing is usually carried out once unit testing is complete or once the indivual components have are confirmed to be successful.
 ```
 
 ### And coding style tests
