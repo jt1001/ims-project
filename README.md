@@ -17,6 +17,7 @@ This project was built using the following:
 MySQL Server - Used to create the DATABASE on the command line.
 MySQL Workbench - A unified visual tool used to also create MySQL databases.
 Eclipse-IDE - A JAVA integrated development environment, very useful for compiling JAVA code and uses a number of useful Java applications.
+Maven - Build automation tool which allows you to download Java libraries and Maven plugins.
 ```
 
 ### Installing
@@ -56,29 +57,41 @@ Tests were carried out in Eclipse IDE using Junit and Junit Mockito.
 
 ```
 A unit test is one of the most important tests as it tests a small amount of code such as a single method to see it the expected output is returned.
-Instead of calling methods by methods, the following is used:
-Stubs - replacement for method, instead of calling the real method we hard code what we expect the response to be. As long as the method is working correctly then our expected response will be correct.
-Drivers - replacement for inputs, they 'drive' data or information into the tested method. This can be very beneficial for when testing methods from an external system.
+The tests carried out were for (CRUD) CREATE, READ, UPDATE, DELETE funtionalities within each Data Access Object(DAO).
+
+ 	@Test
+	public void testCreate() {
+		final Customer created = new Customer(null, "chris", "perrins", "1234678901");
+		assertEquals(created, DAO.create(created));
+  }
+  
+   	@Test
+	public void testReadAll() {
+		List<Customer> expected = new ArrayList<>();
+		expected.add(new Customer(null, "jordan", "harrison", "55372850"));
+		assertEquals(expected, DAO.readAll());
+	}
+ 
+  @Test
+	public void testUpdate() {
+		final Customer updated = new Customer(1L, "chris", "perrins", "1234678901");
+		assertEquals(updated, DAO.update(updated));
+	}
+ 
+ 	@Test
+	public void testDelete() {
+		assertEquals(1, DAO.delete(1));
+	}
+ 
+ Above we have the tests used on CRUD functionalities within the Customer DAO Class.
+
+
 ```
 
-### Integration Tests 
-Explain what these tests test, why and how to run them
-
-```
-Integration testing is usually carried out once unit testing is complete or once the indivual components have are confirmed to be successful.
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+To deploy this you must have downloaded the softwares in the prerequisites.
 
 ## Built With
 
@@ -100,6 +113,4 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+Thank you to the 22JanSoftware cohort team, my code was inspired by different individuals of the team and without them I wouldnt be able to understand alot of these concepts.
