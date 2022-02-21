@@ -7,8 +7,11 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.qa.ims.persistence.dao.CustomerDAO;
 import com.qa.ims.persistence.dao.ItemDAO;
 import com.qa.ims.persistence.dao.OrderDAO;
+import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DBUtils;
@@ -38,7 +41,7 @@ public class OrderController implements CrudController<Order> {
 	}
 
 	@Override
-	public Order create() { //// not completed :(
+	public Order create() { //// NEEDS ADJUSTING
 		LOGGER.info("Please enter the Customer ID");
 		Long customerID = utils.getLong();
 		List<Item> items = new ArrayList<>();
@@ -46,12 +49,12 @@ public class OrderController implements CrudController<Order> {
 		Long itemID = utils.getLong();
 		Item item = itemDAO.read(itemID);
 		items.add(item);
-		Order order = orderDAO.create(new Order(null, customerID, items));
+		Order order = orderDAO.create(new Order(null, customerID, null, items));
 		LOGGER.info("Order created");
 		return null;
 	}
 
-	@Override  //// not completed :(
+	@Override  //// // NEEDS ADJUSTING
 	public Order update() {
 		LOGGER.info("Please enter the Order ID you want to amend");
 		Long orderID = utils.getLong();

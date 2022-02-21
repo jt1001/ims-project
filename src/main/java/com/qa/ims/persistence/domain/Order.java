@@ -7,9 +7,10 @@ public class Order {
 
 	private Long orderID;
 	private Customer c;
+	private Long customerID;
 	private List<Item> items;
 
-	public Order(Long orderID, Customer c, List<Item> items) {
+	public Order(Long orderID, Long customerID, Customer c, List<Item> items) {
 		super();
 		this.orderID = orderID;
 		this.c = c;
@@ -60,7 +61,15 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [orderID=" + orderID + ", c=" + c + ", items=" + items + "]";
+		return "Order [orderID=" + orderID + ", c=" + c + ", customerID=" + customerID + ", items=" + items + "]";
+	}
+
+	public Long getCustomerID() {
+		return customerID;
+	}
+
+	public void setCustomerID(Long customerID) {
+		this.customerID = customerID;
 	}
 
 }

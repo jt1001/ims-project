@@ -20,7 +20,7 @@ public class OrderDAO implements Dao<Order> {
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	@Override
+	@Override //WORKS NOW REVISITED AFTER PRESENTATION CREATED CUSTOMER C AND ASSIGNED THE MYSQL VALUES TO IT!!
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long orderID = resultSet.getLong("Order_ID");
 		Long customerID = resultSet.getLong("o.Customer_ID");
@@ -46,7 +46,7 @@ public class OrderDAO implements Dao<Order> {
 				}
 			}
 		}
-		return new Order(orderID, c, items);
+		return new Order(orderID,customerID, c, items);
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class OrderDAO implements Dao<Order> {
 	}
 
 	@Override
-	public Order create(Order order) {
+	public Order create(Order order) { // NEEDS ADJUSTING
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("INSERT INTO orders(Customer_ID) VALUES ( ?)");) {
@@ -119,7 +119,7 @@ public class OrderDAO implements Dao<Order> {
 				statement.setLong(2, itemID);
 				statement.executeUpdate();
 				if (i + 1 == items.size()) {
-					return modelFromResultSet();
+					return modelFromResultSet(null);
 				}
 			} catch (Exception e) {
 				LOGGER.debug(e);
