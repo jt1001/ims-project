@@ -97,10 +97,6 @@ To deploy this you must have downloaded the softwares in the prerequisites.
 
 * [Maven](https://maven.apache.org/) - Dependency Management
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning.
-
 ## Authors
 
 * **JT Lana** - https://github.com/jt1001
