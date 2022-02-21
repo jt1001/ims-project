@@ -16,10 +16,6 @@ public class Order {
 		this.items = items;
 	}
 
-	public Order(Long orderID2, Long customerID2, String firstName, String lastName, List<Item> items2) {
-		// TODO Auto-generated constructor stub
-	}
-
 	public Long getOrderID() {
 		return orderID;
 	}
@@ -64,7 +60,9 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [orderID=" + orderID + ", customerID=" + customerID + ", items=" + items + "]";
+		return "OrderID: " + orderID + ", CustomerID: " + customerID + ", Items ordered: " + items + "]";
 	}
+	
+	
 
 }

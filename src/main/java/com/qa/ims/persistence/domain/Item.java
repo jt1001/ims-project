@@ -4,22 +4,22 @@ import java.util.Objects;
 
 public class Item {
 
-	private Long itemID;
+	private static Long itemID;
 	private String itemName;
 	private Double itemPrice;
 
-	public Item(long itemID, String itemName, Double itemPrice) {
-		this.itemID = itemID;
+	public Item(Long itemID, String itemName, Double itemPrice) {
+		Item.itemID = itemID;
 		this.itemName = itemName;
 		this.itemPrice = itemPrice;
 	}
 
-	public long getItemID() {
+	public static long getItemID() {
 		return itemID;
 	}
 
 	public void setItemID(long itemID) {
-		this.itemID = itemID;
+		Item.itemID = itemID;
 	}
 
 	public String getItemName() {
@@ -52,7 +52,7 @@ public class Item {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		return itemID == other.itemID && Objects.equals(itemName, other.itemName)
+		return itemID == Item.itemID && Objects.equals(itemName, other.itemName)
 				&& Objects.equals(itemPrice, other.itemPrice);
 	}
 

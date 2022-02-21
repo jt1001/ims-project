@@ -95,7 +95,10 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery(
-						"SELECT oi.Order_ID, oi.Item_ID, i.Item_Name, i.Item_Price FROM ordered_items oi JOIN items i ON oi.Item_ID=i.Item_ID");) {
+						"SELECT o.Order_ID, c.Customer_ID, c.First_Name, c.Last_Name, c.Contact_Number, oi.Item_ID, i.Item_Name, i.Item_Price \r\n"
+								+ "FROM ordered_items oi\r\n" + "JOIN items i ON i.Item_ID = oi.Item_id\r\n"
+								+ "Join orders o ON oi.Order_ID = o.Order_ID\r\n"
+								+ "JOIN customers c ON c.Customer_ID = o.Customer_ID");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -140,8 +143,8 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public Order update(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
-				PreparedStatement statement = connection.prepareStatement(
-						"UPDATE ordered_items SET Item_ID WHERE Order_ID = ?");) {
+				PreparedStatement statement = connection
+						.prepareStatement("UPDATE ordered_items SET Item_ID WHERE Order_ID = ?");) {
 			statement.setLong(1, Item.getItemID());
 			statement.setLong(2, order.getOrderID());
 			statement.executeUpdate();

@@ -31,15 +31,15 @@ public class CustomerControllerTest {
 
 	@Test
 	public void testCreate() {
-		final String firstName = "barry", lastName = "scott";
-		final Customer created = new Customer(firstName, lastName);
+		final String firstName = "barry", lastName = "scott", contactNumber = "123456789";
+		final Customer created = new Customer(null, firstName, lastName, contactNumber);
 
-		Mockito.when(utils.getString()).thenReturn(firstName, lastName);
+		Mockito.when(utils.getString()).thenReturn(firstName, lastName, contactNumber);
 		Mockito.when(dao.create(created)).thenReturn(created);
 
 		assertEquals(created, controller.create());
 
-		Mockito.verify(utils, Mockito.times(2)).getString();
+		Mockito.verify(utils, Mockito.times(3)).getString();
 		Mockito.verify(dao, Mockito.times(1)).create(created);
 	}
 
