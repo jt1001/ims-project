@@ -23,7 +23,12 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long orderID = resultSet.getLong("Order_ID");
-		Long customerID = resultSet.getLong("Customer_ID");
+		Long customerID = resultSet.getLong("o.Customer_ID");
+		String firstName = resultSet.getString("c.First_Name");
+		String lastName = resultSet.getString("c.Last_Name");
+		String contactNumber = resultSet.getString("c.Contact_Number");
+
+		Customer c = new Customer(customerID, firstName, lastName, contactNumber);
 
 		List<Item> items = new ArrayList<>();
 
@@ -32,16 +37,16 @@ public class OrderDAO implements Dao<Order> {
 				ResultSet itemResults = statement.executeQuery(
 						"SELECT oi.Order_ID, oi.Item_ID, i.Item_Name, i.Item_Price FROM ordered_items oi JOIN items i ON oi.Item_ID=i.Item_ID");) {
 			while (itemResults.next()) {
-				if (orderID == itemResults.getLong("Order_id")) {
-					Long itemId = itemResults.getLong("Item_id");
-					String itemName = itemResults.getString("Item_Name");
-					Double price = itemResults.getDouble("Item_Price");
-					Item item = new Item(itemId, itemName, price);
+				if (orderID == itemResults.getLong("oi.Order_id")) {
+					Long itemId = itemResults.getLong("oi.Item_ID");
+					String itemname = itemResults.getString("i.Item_Name");
+					Double price = itemResults.getDouble("i.Item_Price");
+					Item item = new Item(itemId, itemname, price);
 					items.add(item);
 				}
 			}
 		}
-		return new Order(orderID, customerID, items);
+		return new Order(orderID, c, items);
 	}
 
 	@Override
@@ -49,7 +54,8 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery(
-						"SELECT oi.Order_ID, oi.Item_ID, i.Item_Name, i.Item_Price FROM ordered_items oi JOIN items i ON oi.Item_ID=i.Item_ID");) {
+						"SELECT o.Order_ID, o.Customer_ID, c.First_Name, c.Last_Name, c.Contact_number\r\n"
+								+ "FROM orders o\r\n" + "Join Customers c ON o.Customer_ID=c.Customer_ID;");) {
 			List<Order> orders = new ArrayList<>();
 			while (resultSet.next()) {
 				orders.add(modelFromResultSet(resultSet));
@@ -91,23 +97,6 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 
-	public Order readOrderWItems() {
-		try (Connection connection = DBUtils.getInstance().getConnection();
-				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery(
-						"SELECT o.Order_ID, c.Customer_ID, c.First_Name, c.Last_Name, c.Contact_Number, oi.Item_ID, i.Item_Name, i.Item_Price \r\n"
-								+ "FROM ordered_items oi\r\n" + "JOIN items i ON i.Item_ID = oi.Item_id\r\n"
-								+ "Join orders o ON oi.Order_ID = o.Order_ID\r\n"
-								+ "JOIN customers c ON c.Customer_ID = o.Customer_ID");) {
-			resultSet.next();
-			return modelFromResultSet(resultSet);
-		} catch (Exception e) {
-			LOGGER.debug(e);
-			LOGGER.error(e.getMessage());
-		}
-		return null;
-	}
-
 	@Override
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -130,7 +119,7 @@ public class OrderDAO implements Dao<Order> {
 				statement.setLong(2, itemID);
 				statement.executeUpdate();
 				if (i + 1 == items.size()) {
-					return readOrderWItems();
+					return modelFromResultSet();
 				}
 			} catch (Exception e) {
 				LOGGER.debug(e);
@@ -145,7 +134,7 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("UPDATE ordered_items SET Item_ID WHERE Order_ID = ?");) {
-			statement.setLong(1, Item.getItemID());
+			statement.setLong(1, order.getCustomerID());
 			statement.setLong(2, order.getOrderID());
 			statement.executeUpdate();
 			return read(order.getOrderID());

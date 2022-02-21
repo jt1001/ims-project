@@ -25,7 +25,7 @@ public class ItemDAO implements Dao<Item> {
 		Double ItemPrice = resultSet.getDouble("Item_Price");
 		return new Item(ItemId, ItemName, ItemPrice);
 	}
-
+	
 	@Override
 	public List<Item> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();

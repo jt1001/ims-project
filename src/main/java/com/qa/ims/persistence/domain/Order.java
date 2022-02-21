@@ -6,13 +6,13 @@ import java.util.Objects;
 public class Order {
 
 	private Long orderID;
-	private Long customerID;
+	private Customer c;
 	private List<Item> items;
 
-	public Order(Long orderID, Long customerID, List<Item> items) {
+	public Order(Long orderID, Customer c, List<Item> items) {
 		super();
 		this.orderID = orderID;
-		this.customerID = customerID;
+		this.c = c;
 		this.items = items;
 	}
 
@@ -24,12 +24,12 @@ public class Order {
 		this.orderID = orderID;
 	}
 
-	public Long getCustomerID() {
-		return customerID;
+	public Customer getC() {
+		return c;
 	}
 
-	public void setCustomerID(Long customerID) {
-		this.customerID = customerID;
+	public void setC(Customer c) {
+		this.c = c;
 	}
 
 	public List<Item> getItems() {
@@ -42,7 +42,7 @@ public class Order {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(customerID, items, orderID);
+		return Objects.hash(c, items, orderID);
 	}
 
 	@Override
@@ -54,15 +54,13 @@ public class Order {
 		if (getClass() != obj.getClass())
 			return false;
 		Order other = (Order) obj;
-		return Objects.equals(customerID, other.customerID) && Objects.equals(items, other.items)
+		return Objects.equals(c, other.c) && Objects.equals(items, other.items)
 				&& Objects.equals(orderID, other.orderID);
 	}
 
 	@Override
 	public String toString() {
-		return "OrderID: " + orderID + ", CustomerID: " + customerID + ", Items ordered: " + items + "]";
+		return "Order [orderID=" + orderID + ", c=" + c + ", items=" + items + "]";
 	}
-	
-	
 
 }

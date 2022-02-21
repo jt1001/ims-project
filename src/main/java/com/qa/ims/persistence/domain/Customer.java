@@ -49,6 +49,11 @@ public class Customer {
 		this.contactNumber = contactNumber;
 	}
 
+	public Customer(Long customerID2, String firstName2, String lastName2, String contactNumber2, Long itemID,
+			String itemName, Double itemPrice) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(contactNumber, customerID, firstName, lastName);
