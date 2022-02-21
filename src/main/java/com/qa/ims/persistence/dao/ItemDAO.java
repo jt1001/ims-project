@@ -73,12 +73,12 @@ public class ItemDAO implements Dao<Item> {
 	}
 
 	@Override
-	public Item create(Item Item) {
+	public Item create(Item item) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				PreparedStatement statement = connection
 						.prepareStatement("INSERT INTO Items(Item_Name, Item_Price) VALUES (?, ?)");) {
-			statement.setString(1, Item.getItemName());
-			statement.setDouble(2, Item.getItemPrice());
+			statement.setString(1, item.getItemName());
+			statement.setDouble(2, item.getItemPrice());
 			statement.executeUpdate();
 			return readLatest();
 		} catch (Exception e) {

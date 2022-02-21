@@ -1,22 +1,22 @@
 package com.qa.ims.controller;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.qa.ims.persistence.dao.CustomerDAO;
 import com.qa.ims.persistence.dao.ItemDAO;
 import com.qa.ims.persistence.dao.OrderDAO;
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
-
 import com.qa.ims.utils.DBUtils;
 import com.qa.ims.utils.Utils;
 
 public class OrderController implements CrudController<Order> {
+
+	public static final Logger LOGGER = LogManager.getLogger();
 
 	private OrderDAO orderDAO;
 	private Utils utils;
@@ -27,8 +27,6 @@ public class OrderController implements CrudController<Order> {
 		this.orderDAO = orderDAO;
 		this.utils = utils;
 	}
-
-	public static final Logger LOGGER = LogManager.getLogger();
 
 	@Override
 	public List<Order> readAll() {
@@ -41,32 +39,27 @@ public class OrderController implements CrudController<Order> {
 
 	@Override
 	public Order create() {
-		LOGGER.info("Please enter a customer ID");
+		LOGGER.info("Please enter the Customer ID");
 		Long customerID = utils.getLong();
 		List<Item> items = new ArrayList<>();
-		LOGGER.info("Please enter the ID of the item you want to add to the order");
+		LOGGER.info("Please enter an item ID to add to order");
 		Long itemID = utils.getLong();
 		Item item = itemDAO.read(itemID);
 		items.add(item);
 		Order order = orderDAO.create(new Order(null, customerID, items));
-		LOGGER.info("Order created!");
-
-		return order;
+		LOGGER.info("Order created");
+		return null;
 	}
 
 	@Override
 	public Order update() {
-		LOGGER.info("Please enter the Order ID you would like to update");
-		Long customerID = utils.getLong();
-		List<Item> items = new ArrayList<>();
-		LOGGER.info("Please enter the newItem ID you want to add");
+		LOGGER.info("Please enter the Order ID you want to amend");
+		Long orderID = utils.getLong();
+		LOGGER.info("Please enter an item ID to add to order");
 		Long itemID = utils.getLong();
 		Item item = itemDAO.read(itemID);
-		items.add(item);
-		Order order = orderDAO.create(new Order(null, customerID, items));
-		LOGGER.info("Order updated!");
-
-		return order;
+		LOGGER.info("Order updated");
+		return null;
 	}
 
 	@Override
