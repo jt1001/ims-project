@@ -103,7 +103,7 @@ We use [SemVer](http://semver.org/) for versioning.
 
 ## Authors
 
-* **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
+* **JT Lana** - https://github.com/jt1001
 
 ## License
 
