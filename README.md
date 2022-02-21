@@ -35,20 +35,16 @@ This will then start the application in the Console.
 
 ```
 
-And repeat
-
-```
-until finished
-```
-
 Test the functionality by creating a Customer:
 
+```
 1. Once the applciation is running by following the steps above enter: Customer
 2. To create enter: create
 3. You will then be prompted to enter a first name and press enter: e.g JT
 4. You will then be prompted to enter a last name and press enter: e.g Lana
 5. You will then be prompted to enter a phone number and press enter: e.g 987654321
 6. A message will appear on the screen with: "Customer create"
+```
 
 
 ## Running the tests
